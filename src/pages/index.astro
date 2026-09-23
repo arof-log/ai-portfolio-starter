@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
+
+const works = (await getCollection('works')).sort((a, b) => b.data.year - a.data.year);
+const featured = works.filter((item) => item.data.featured).slice(0, 5);
+const posts = (await getCollection('posts')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 4);
+---
+<BaseLayout title="Studio Archive — Portfolio & Journal" description="작품과 기록을 담는 개인 포트폴리오 웹사이트">
+  <section class="hero">
+    <div class="site-shell hero-grid">
+      <h1>WORK,<br />THOUGHT,<br />PROCESS.</h1>
+      <div class="hero-copy">
+        <p class="eyebrow">Independent portfolio / Seoul, KR</p>
+        <p>작품과 생각, 제작 과정의 기록을 한곳에 쌓아가는 개인 아카이브입니다. 이 문장은 자유롭게 교체할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="section-head">
+        <h2>Selected Work</h2>
+        <a class="muted" href="/work">View all →</a>
+      </div>
+      <div class="work-grid">
+        {featured.map((work) => <WorkCard work={work} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="section-head">
+        <h2>Journal</h2>
+        <a class="muted" href="/journal">All posts →</a>
+      </div>
+      <div class="journal-list">
+        {posts.map((post) => (
+          <a class="journal-row" href={`/journal/${post.id}`}>
+            <span class="eyebrow">{post.data.date.toLocaleDateString('ko-KR')}</span>
+            <h3>{post.data.title}</h3>
+            <span class="muted">{post.data.category}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section rule" id="about">
+    <div class="site-shell about-grid">
+      <p class="about-copy">I make visual ideas tangible — from identity and interface to editorial experiments.</p>
+      <div class="about-small">
+        <p class="eyebrow">About</p>
+        <p>여기에 본인 소개를 넣으세요. 어떤 일을 하는지, 어떤 방식으로 생각하고 만드는지, 협업 문의를 어디로 받을지 적으면 됩니다.</p>
+        <p><a href="mailto:hello@example.com">hello@example.com →</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
