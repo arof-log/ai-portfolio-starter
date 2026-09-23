@@ -1,0 +1,69 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: works
+    label: Works
+    type: collection
+    path: src/content/works
+    fields:
+      - name: title
+        label: 작품명
+        type: string
+      - name: summary
+        label: 한 줄 소개
+        type: text
+      - name: category
+        label: 카테고리
+        type: string
+      - name: year
+        label: 연도
+        type: number
+      - name: cover
+        label: 대표 이미지
+        type: image
+      - name: featured
+        label: 메인 노출
+        type: boolean
+      - name: role
+        label: 역할
+        type: string
+        required: false
+      - name: tools
+        label: 사용 도구
+        type: string
+        required: false
+      - name: body
+        label: 상세 내용
+        type: rich-text
+
+  - name: posts
+    label: Journal
+    type: collection
+    path: src/content/posts
+    fields:
+      - name: title
+        label: 제목
+        type: string
+      - name: excerpt
+        label: 요약
+        type: text
+      - name: date
+        label: 날짜
+        type: date
+      - name: category
+        label: 카테고리
+        type: string
+      - name: cover
+        label: 대표 이미지
+        type: image
+        required: false
+      - name: body
+        label: 본문
+        type: rich-text
+
+settings:
+  hide: false
+  commit:
+    message: "content: {action} {filename}"
