@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout title={`${post.data.title} — Studio Archive`} description={post.data.excerpt}>
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">{post.data.category} · {post.data.date.toLocaleDateString('ko-KR')}</p>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.excerpt}</p>
+    </div>
+  </section>
+  {post.data.cover && <div class="site-shell post-cover"><img src={post.data.cover} alt="" /></div>}
+  <article class="site-shell prose"><Content /></article>
+</BaseLayout>
