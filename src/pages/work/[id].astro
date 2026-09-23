@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const works = await getCollection('works');
+  return works.map((work) => ({ params: { id: work.id }, props: { work } }));
+}
+
+const { work } = Astro.props;
+const { Content } = await render(work);
+---
+<BaseLayout title={`${work.data.title} — Studio Archive`} description={work.data.summary}>
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">{work.data.category} · {work.data.year}</p>
+      <h1>{work.data.title}</h1>
+      <p>{work.data.summary}</p>
+    </div>
+  </section>
+  <div class="site-shell project-hero"><img src={work.data.cover} alt={`${work.data.title} 대표 이미지`} /></div>
+  <section class="site-shell project-info rule">
+    <div><p class="eyebrow">Project information</p></div>
+    <dl>
+      <dt>Category</dt><dd>{work.data.category}</dd>
+      <dt>Year</dt><dd>{work.data.year}</dd>
+      {work.data.role && <><dt>Role</dt><dd>{work.data.role}</dd></>}
+      {work.data.tools && <><dt>Tools</dt><dd>{work.data.tools}</dd></>}
+    </dl>
+  </section>
+  <article class="site-shell prose"><Content /></article>
+</BaseLayout>
