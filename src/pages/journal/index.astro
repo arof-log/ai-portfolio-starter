@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const posts = (await getCollection('posts')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<BaseLayout title="Journal — Studio Archive">
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">Notes & Process</p>
+      <h1>JOURNAL</h1>
+      <p>작업 과정, 디자인 생각, 프로젝트 비하인드, 짧은 메모를 자유롭게 발행하는 공간입니다.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="site-shell journal-list">
+      {posts.map((post) => (
+        <a class="journal-row" href={`/journal/${post.id}`}>
+          <span class="eyebrow">{post.data.date.toLocaleDateString('ko-KR')}</span>
+          <h3>{post.data.title}</h3>
+          <span class="muted">{post.data.category}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
