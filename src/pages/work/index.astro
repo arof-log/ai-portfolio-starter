@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+const works = (await getCollection('works')).sort((a, b) => b.data.year - a.data.year);
+---
+<BaseLayout title="Work — Studio Archive">
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">Portfolio</p>
+      <h1>WORK</h1>
+      <p>브랜딩, UI/UX, 그래픽, 콘텐츠 등 작업물을 카테고리 제한 없이 축적할 수 있는 구조입니다.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="site-shell work-grid">
+      {works.map((work) => <WorkCard work={work} />)}
+    </div>
+  </section>
+</BaseLayout>
