@@ -1,6 +1,6 @@
 media:
-  input: public/uploads
-  output: /uploads
+  input: public/images
+  output: /images
 
 content:
   - name: works
