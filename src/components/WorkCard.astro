@@ -1,0 +1,13 @@
+---
+const { work } = Astro.props;
+---
+<a class="work-card" href={`/work/${work.id}`}>
+  <figure><img src={work.data.cover} alt={`${work.data.title} 대표 이미지`} loading="lazy" /></figure>
+  <div class="card-meta">
+    <div>
+      <div class="card-title">{work.data.title}</div>
+      <div class="muted">{work.data.summary}</div>
+    </div>
+    <div class="card-side">{work.data.category}<br />{work.data.year}</div>
+  </div>
+</a>
