@@ -1,0 +1,37 @@
+---
+import '../styles/global.css';
+const {
+  title = 'Studio Archive',
+  description = 'Portfolio and journal'
+} = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="site-shell header-inner">
+        <a class="brand" href="/">STUDIO ARCHIVE</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="/work">Work</a>
+          <a href="/journal">Journal</a>
+          <a href="/#about">About</a>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="footer">
+      <div class="site-shell footer-inner">
+        <span>Selected works & notes.</span>
+        <span>© {currentYear} STUDIO ARCHIVE</span>
+      </div>
+    </footer>
+  </body>
+</html>
